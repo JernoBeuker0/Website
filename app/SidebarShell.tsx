@@ -50,7 +50,7 @@ export default function SidebarShell({ children }: { children: React.ReactNode }
                     onClick={handleLinkClick}
                     className={`transition-all duration-300 transform ${
                     isActive
-                        ? 'text-3xl text-black font-bold bg-gray-200 rounded-md px-3 py-2'
+                        ? 'text-xl text-black font-bold bg-gray-200 rounded-md px-3 py-2'
                         : 'text-xl text-gray-700 font-semibold hover:text-black hover:scale-105'
                     }`}
                 >
