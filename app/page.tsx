@@ -29,14 +29,35 @@ export default function Home() {
 
       <main className="flex flex-col gap-12 w-full max-w-4xl text-left">
 
-        {/* Education Section */}
-        <section>
-          <h2 className="text-2xl font-semibold mb-4 text-gray-900">Education</h2>
-          <ul className="list-disc list-inside space-y-2 text-gray-800">
-            <li>Bachelor of Artificial Intelligence - Rijksuniversiteit Groningen (2022-2025)</li>
-            <li>VWO - Het Drachtster Lyceum (2016-2022)</li>
-          </ul>
-        </section>
+      <div className="mt-12 flex flex-wrap justify-center gap-8">
+        {/* About Me Card */}
+        <a
+            href="/about"
+            className="w-56 h-56 rounded-xl bg-yellow-100 shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 relative overflow-hidden"
+        >
+            <div className="absolute inset-0 bg-[url('/noise.svg')] bg-no-repeat bg-cover opacity-10 pointer-events-none" />
+            <div className="flex flex-col justify-between h-full p-4">
+            <h2 className="text-2xl font-bold text-gray-900">About Me</h2>
+            <p className="text-sm text-gray-700 self-end text-right">
+                Learn more about my background, education, and interests.
+            </p>
+            </div>
+        </a>
+
+        {/* Projects Card */}
+        <a
+            href="/projects"
+            className="w-56 h-56 rounded-xl bg-green-100 shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 relative overflow-hidden"
+        >
+            <div className="absolute inset-0 bg-[url('/noise.svg')] bg-no-repeat bg-cover opacity-10 pointer-events-none" />
+            <div className="flex flex-col justify-between h-full p-4">
+            <h2 className="text-2xl font-bold text-gray-900">Projects</h2>
+            <p className="text-sm text-gray-700 self-end text-right">
+                Explore what I've built using React, Python, and more.
+            </p>
+            </div>
+        </a>
+        </div>
 
         {/* Contact Section */}
         <section>
