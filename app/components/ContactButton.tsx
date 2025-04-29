@@ -26,7 +26,7 @@ export default function ContactButton() {
   return (
     <button
       onClick={handleClick}
-      className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-colors"
+      className="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full font-semibold shadow-md hover:shadow-lg transition-all duration-300"
     >
       {copied ? "Copied!" : "Contact Me"}
     </button>
