@@ -29,7 +29,7 @@ export default function Home() {
 
       <main className="flex flex-col gap-16 w-full max-w-5xl px-4">
         {/* Cards Section */}
-        <div className="flex flex-wrap justify-center gap-10">
+        <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-10">
           {/* About Me Card */}
           <motion.a
             href="/about"
