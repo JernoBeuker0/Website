@@ -1,14 +1,31 @@
 'use client';
+import Image from "next/image";
+import ContactButton from "./components/ContactButton";
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen items-center justify-center bg-gradient-to-br from-blue-200 to-purple-300 p-8 text-center">
-      <header className="mb-12">
-        <h1 className="text-5xl font-bold mb-4 text-gray-900">Jerno Beuker</h1>
-        <p className="text-lg max-w-2xl text-gray-800">
-          Student BSc Artificial Intelligence at RUG
-        </p>
-      </header>
+
+        <header className="mb-12">
+        <div className="flex items-center justify-center gap-6 flex-wrap">
+            {/* Text section */}
+            <div className="text-center sm:text-left">
+            <h1 className="text-6xl font-bold mb-2 text-gray-900">Jerno Beuker</h1>
+            <p className="text-xl text-lg text-gray-800">
+                Student BSc Artificial Intelligence at RUG
+            </p>
+            </div>
+
+            {/* Image section */}
+            <Image
+            src="/Mee.jpeg" // <- make sure this file is in your /public folder
+            alt="Profile picture"
+            width={96}
+            height={96}
+            className="rounded-full object-cover w-24 h-24 sm:w-32 sm:h-32"
+            />
+        </div>
+        </header>
 
       <main className="flex flex-col gap-12 w-full max-w-4xl text-left">
 
@@ -23,21 +40,19 @@ export default function Home() {
 
         {/* Contact Section */}
         <section>
-          <a
-        href="mailto:jernobeuker0@gmail.com"
-        className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-colors"
-        >
-        Contact Me
-        </a>
-          <a
-          href="https://github.com/jernobeuker0"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="px-6 py-3 bg-gray-800 hover:bg-gray-900 text-white rounded-full font-medium transition-colors"
-          >
-          Visit my GitHub
-          </a>
+            <div className="flex flex-row justify-center items-center gap-4 flex-wrap">
+                <ContactButton />
+                <a
+                href="https://github.com/jernobeuker0"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3 bg-gray-800 hover:bg-gray-900 text-white rounded-full font-medium transition-colors"
+                >
+                Visit my GitHub
+                </a>
+            </div>
         </section>
+
         
       </main>
 
