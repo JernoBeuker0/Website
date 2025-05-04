@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Jerno Beuker Portfolio",
+  title: "Website Jerno Beuker",
   description: "Personal website of Jerno Beuker",
 };
 
