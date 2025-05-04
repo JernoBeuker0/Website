@@ -1,6 +1,6 @@
 'use client';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { useEffect, useState, useRef } from 'react';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
@@ -8,13 +8,18 @@ const ItemType = 'TASK';
 const fieldNames = ['To-Do', 'Monitor', 'In Progress', 'Done'];
 
 function Task({ task, index, fromField }: any) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [, drag] = useDrag({
+  const ref = useRef<HTMLDivElement>(null);
+
+  const drag = useDrag(() => ({
     type: ItemType,
     item: { index, fromField },
-  });
+  }))[1] as (node: HTMLDivElement | null) => void;
 
-  drag(ref);
+  useEffect(() => {
+    if (ref.current) {
+      drag(ref.current);
+    }
+  }, [drag]);
 
   return (
     <div
@@ -27,13 +32,19 @@ function Task({ task, index, fromField }: any) {
 }
 
 function Field({ index, tasks, onDropTask }: any) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [, drop] = useDrop({
-    accept: ItemType,
-    drop: (item: any) => onDropTask(item.fromField, index, item.index),
-  });
+  const ref = useRef<HTMLDivElement>(null);
 
-  drop(ref);
+  const drop = useDrop(() => ({
+    accept: ItemType,
+    drop: (item: { index: number; fromField: number }) =>
+      onDropTask(item.fromField, index, item.index),
+  }))[1] as (node: HTMLDivElement | null) => void;
+
+  useEffect(() => {
+    if (ref.current) {
+      drop(ref.current);
+    }
+  }, [drop]);
 
   return (
     <div
@@ -46,12 +57,7 @@ function Field({ index, tasks, onDropTask }: any) {
           {fieldNames[index] || `Field ${index + 1}`}
         </h2>
         {tasks.map((task: string, i: number) => (
-          <Task
-            key={i}
-            task={task}
-            index={i}
-            fromField={index}
-          />
+          <Task key={i} task={task} index={i} fromField={index} />
         ))}
       </div>
     </div>
@@ -59,13 +65,19 @@ function Field({ index, tasks, onDropTask }: any) {
 }
 
 function Trash({ deleteTask }: any) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [, drop] = useDrop({
-    accept: ItemType,
-    drop: (item: any) => deleteTask(item.fromField, item.index),
-  });
+  const ref = useRef<HTMLDivElement>(null);
 
-  drop(ref);
+  const drop = useDrop(() => ({
+    accept: ItemType,
+    drop: (item: { index: number; fromField: number }) =>
+      deleteTask(item.fromField, item.index),
+  }))[1] as (node: HTMLDivElement | null) => void;
+
+  useEffect(() => {
+    if (ref.current) {
+      drop(ref.current);
+    }
+  }, [drop]);
 
   return (
     <div
@@ -81,26 +93,23 @@ export default function AdminPage() {
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
   const [newTask, setNewTask] = useState('');
-  const [fields, setFields] = useState<string[][]>(() => {
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('todo-fields');
-      return stored ? JSON.parse(stored) : [[], [], [], []];
-    }
-    return [[], [], [], []];
-  });
+  const [fields, setFields] = useState<string[][]>([[], [], [], []]);
 
   const correctPassword = 'November Rain';
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('todo-fields', JSON.stringify(fields));
-    }
+    const stored = localStorage.getItem('todo-fields');
+    if (stored) setFields(JSON.parse(stored));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('todo-fields', JSON.stringify(fields));
   }, [fields]);
 
   const handleAddTask = (e: any) => {
     e.preventDefault();
     if (!newTask.trim()) return;
-    setFields(prev => {
+    setFields((prev) => {
       const copy = [...prev];
       copy[0] = [...copy[0], newTask];
       return copy;
@@ -109,7 +118,7 @@ export default function AdminPage() {
   };
 
   const moveTask = (fromField: number, toField: number, taskIndex: number) => {
-    setFields(prev => {
+    setFields((prev) => {
       const updated = [...prev];
       const task = updated[fromField][taskIndex];
       updated[fromField] = updated[fromField].filter((_, i) => i !== taskIndex);
@@ -119,7 +128,7 @@ export default function AdminPage() {
   };
 
   const deleteTask = (fromField: number, taskIndex: number) => {
-    setFields(prev => {
+    setFields((prev) => {
       const updated = [...prev];
       updated[fromField] = updated[fromField].filter((_, i) => i !== taskIndex);
       return updated;
@@ -131,24 +140,24 @@ export default function AdminPage() {
       <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-200 to-purple-300 text-gray-900">
         <h1 className="text-3xl font-bold mb-4">Enter Password</h1>
         <form
-        onSubmit={(e) => {
+          onSubmit={(e) => {
             e.preventDefault();
             if (password === correctPassword) setAuthenticated(true);
-        }}
-        className="flex flex-col items-center"
+          }}
+          className="flex flex-col items-center"
         >
-        <input
+          <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="px-4 py-2 rounded border"
-        />
-        <button
+          />
+          <button
             type="submit"
             className="mt-4 px-6 py-2 bg-gray-800 text-white rounded-full"
-        >
+          >
             Unlock
-        </button>
+          </button>
         </form>
       </div>
     );
@@ -186,15 +195,15 @@ export default function AdminPage() {
         </div>
 
         <div className="flex justify-center">
-            <Trash deleteTask={deleteTask} />
+          <Trash deleteTask={deleteTask} />
         </div>
-        <Link
-            href="/"
-            className="absolute bottom-6 right-6 px-6 py-3 bg-gray-800 hover:bg-gray-900 text-white rounded-full font-semibold shadow-md hover:shadow-lg transition-all duration-300"
-        >
-            Back to Home
-        </Link>
 
+        <Link
+          href="/"
+          className="absolute bottom-6 right-6 px-6 py-3 bg-gray-800 hover:bg-gray-900 text-white rounded-full font-semibold shadow-md hover:shadow-lg transition-all duration-300"
+        >
+          Back to Home
+        </Link>
       </div>
     </DndProvider>
   );
