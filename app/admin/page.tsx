@@ -49,10 +49,10 @@ function Field({ index, tasks, onDropTask }: any) {
   return (
     <div
       ref={ref}
-      className="relative bg-white w-64 min-h-[12rem] rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col"
+      className="relative bg-white w-64 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col"
     >
       <div className="absolute inset-0 bg-[url('/noise.svg')] bg-cover opacity-5 pointer-events-none rounded-xl" />
-      <div className="relative z-10 h-full flex flex-col">
+      <div className="relative z-10 flex flex-col">
         <h2 className="text-lg font-semibold mb-4 text-gray-900">
           {fieldNames[index] || `Field ${index + 1}`}
         </h2>
@@ -183,7 +183,7 @@ export default function AdminPage() {
           </button>
         </form>
 
-        <div className="flex flex-wrap gap-6 justify-center">
+        <div className="flex flex-wrap gap-6 justify-center items-start">
           {fields.map((field, index) => (
             <Field
               key={index}
