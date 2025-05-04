@@ -49,7 +49,7 @@ function Field({ index, tasks, onDropTask }: any) {
   return (
     <div
       ref={ref}
-      className="relative bg-white w-64 h-[280px] rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 overflow-y-auto"
+      className="relative bg-white w-64 min-h-[12rem] rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col"
     >
       <div className="absolute inset-0 bg-[url('/noise.svg')] bg-cover opacity-5 pointer-events-none rounded-xl" />
       <div className="relative z-10 h-full flex flex-col">
