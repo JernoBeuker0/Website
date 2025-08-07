@@ -21,7 +21,7 @@ export default function SidebarShell({ children }: { children: React.ReactNode }
     <>
       {/* Burger button */}
       <button
-        className="fixed top-4 left-4 z-50 p-2 text-3xl text-gray-800 hover:text-blue-600 transition-colors"
+        className="fixed top-4 left-4 z-50 p-2 text-3xl text-gray-300 hover:text-blue-500 transition-colors"
         onClick={() => setMenuOpen((prev) => !prev)}
       >
         ☰
@@ -37,7 +37,7 @@ export default function SidebarShell({ children }: { children: React.ReactNode }
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full w-1/5 min-w-[200px] bg-white rounded-r-lg shadow-lg p-6 z-40 transform transition-transform duration-300 ${
+        className={`fixed top-0 left-0 h-full w-1/5 min-w-[200px] bg-[#161B22] text-[#E6EDF3] rounded-r-lg shadow-lg p-6 z-40 transform transition-transform duration-300 ${
           menuOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -55,8 +55,8 @@ export default function SidebarShell({ children }: { children: React.ReactNode }
                     onClick={handleLinkClick}
                     className={`transition-all duration-300 transform ${
                       isActive
-                        ? 'text-xl text-black font-bold bg-gray-200 rounded-md px-3 py-2'
-                        : 'text-xl text-gray-700 font-semibold hover:text-black hover:scale-105'
+                        ? 'text-xl text-[#E6EDF3] font-bold bg-[#30363D] rounded-md px-3 py-2'
+                        : 'text-xl text-[#8B949E] font-semibold hover:text-[#E6EDF3] hover:scale-105'
                     }`}
                   >
                     {link.label}
@@ -77,8 +77,8 @@ export default function SidebarShell({ children }: { children: React.ReactNode }
                   onClick={handleLinkClick}
                   className={`transition-all duration-300 transform ${
                     isActive
-                      ? 'text-xl text-black font-bold bg-gray-200 rounded-md px-3 py-2'
-                      : 'text-xl text-gray-700 font-semibold hover:text-black hover:scale-105'
+                      ? 'text-xl text-[#E6EDF3] font-bold bg-[#30363D] rounded-md px-3 py-2'
+                      : 'text-xl text-[#8B949E] font-semibold hover:text-[#E6EDF3] hover:scale-105'
                   }`}
                 >
                   {link.label}
@@ -90,7 +90,7 @@ export default function SidebarShell({ children }: { children: React.ReactNode }
       </div>
 
       {/* Page content */}
-      <main className="min-h-screen w-full bg-gradient-to-br from-blue-200 to-purple-300 p-6">
+      <main className="min-h-screen w-full bg-[#0D1117] p-6">
         {children}
       </main>
     </>
