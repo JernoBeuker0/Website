@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import SidebarShell from "./SidebarShell"; // adjust path if it's in /components
+import SidebarShell from "./SidebarShell";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,8 +24,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <html lang="en" className="bg-gray-950 text-slate-100">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-950 text-slate-100`}
+      >
         <SidebarShell>{children}</SidebarShell>
       </body>
     </html>

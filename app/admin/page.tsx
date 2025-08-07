@@ -9,22 +9,19 @@ const fieldNames = ['To-Do', 'Monitor', 'In Progress', 'Done'];
 
 function Task({ task, index, fromField }: any) {
   const ref = useRef<HTMLDivElement>(null);
-
   const drag = useDrag(() => ({
     type: ItemType,
     item: { index, fromField },
   }))[1] as (node: HTMLDivElement | null) => void;
 
   useEffect(() => {
-    if (ref.current) {
-      drag(ref.current);
-    }
+    if (ref.current) drag(ref.current);
   }, [drag]);
 
   return (
     <div
       ref={ref}
-      className="bg-yellow-100 p-2 rounded shadow mb-2 cursor-move"
+      className="bg-[#EBD5C8] text-[#1A1A1A] p-2 rounded shadow mb-2 cursor-move"
     >
       {task}
     </div>
@@ -33,7 +30,6 @@ function Task({ task, index, fromField }: any) {
 
 function Field({ index, tasks, onDropTask }: any) {
   const ref = useRef<HTMLDivElement>(null);
-
   const drop = useDrop(() => ({
     accept: ItemType,
     drop: (item: { index: number; fromField: number }) =>
@@ -41,21 +37,17 @@ function Field({ index, tasks, onDropTask }: any) {
   }))[1] as (node: HTMLDivElement | null) => void;
 
   useEffect(() => {
-    if (ref.current) {
-      drop(ref.current);
-    }
+    if (ref.current) drop(ref.current);
   }, [drop]);
 
   return (
     <div
       ref={ref}
-      className="relative bg-white w-64 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col"
+      className="relative bg-[#F1D7CE] text-[#1A1A1A] w-64 rounded-xl border border-[#D4BFB8] p-6 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col"
     >
-      <div className="absolute inset-0 bg-[url('/noise.svg')] bg-cover opacity-5 pointer-events-none rounded-xl" />
+      <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-10 pointer-events-none rounded-xl" />
       <div className="relative z-10 flex flex-col">
-        <h2 className="text-lg font-semibold mb-4 text-gray-900">
-          {fieldNames[index] || `Field ${index + 1}`}
-        </h2>
+        <h2 className="text-lg font-semibold mb-4">{fieldNames[index]}</h2>
         {tasks.map((task: string, i: number) => (
           <Task key={i} task={task} index={i} fromField={index} />
         ))}
@@ -66,7 +58,6 @@ function Field({ index, tasks, onDropTask }: any) {
 
 function Trash({ deleteTask }: any) {
   const ref = useRef<HTMLDivElement>(null);
-
   const drop = useDrop(() => ({
     accept: ItemType,
     drop: (item: { index: number; fromField: number }) =>
@@ -74,15 +65,13 @@ function Trash({ deleteTask }: any) {
   }))[1] as (node: HTMLDivElement | null) => void;
 
   useEffect(() => {
-    if (ref.current) {
-      drop(ref.current);
-    }
+    if (ref.current) drop(ref.current);
   }, [drop]);
 
   return (
     <div
       ref={ref}
-      className="w-64 h-16 mt-6 bg-red-100 text-red-700 border-2 border-red-300 rounded-lg flex items-center justify-center font-bold"
+      className="w-64 h-16 mt-6 bg-red-200 text-red-800 border-2 border-red-400 rounded-lg flex items-center justify-center font-bold"
     >
       🗑️ Drag here to delete
     </div>
@@ -137,7 +126,7 @@ export default function AdminPage() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-200 to-purple-300 text-gray-900">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[#0D1117] text-[#E6EDF3]">
         <h1 className="text-3xl font-bold mb-4">Enter Password</h1>
         <form
           onSubmit={(e) => {
@@ -150,11 +139,11 @@ export default function AdminPage() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="px-4 py-2 rounded border"
+            className="px-4 py-2 rounded border w-64 bg-[#161B22] text-[#E6EDF3] border-[#30363D]"
           />
           <button
             type="submit"
-            className="mt-4 px-6 py-2 bg-gray-800 text-white rounded-full"
+            className="mt-4 px-6 py-2 bg-[#21262D] hover:bg-[#30363D] text-[#E6EDF3] rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:ring-2 hover:ring-blue-500"
           >
             Unlock
           </button>
@@ -165,19 +154,19 @@ export default function AdminPage() {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="relative min-h-screen bg-gradient-to-br from-blue-200 to-purple-300 p-8 text-gray-900">
+      <div className="relative min-h-screen bg-[#0D1117] p-8 text-[#E6EDF3]">
         <h1 className="text-4xl font-bold text-center mb-6">To-Do Board</h1>
 
         <form onSubmit={handleAddTask} className="flex justify-center mb-8 gap-2">
           <input
             value={newTask}
             onChange={(e) => setNewTask(e.target.value)}
-            className="px-4 py-2 rounded border w-64"
+            className="px-4 py-2 rounded border w-64 bg-[#161B22] text-[#E6EDF3] border-[#30363D]"
             placeholder="Add new task"
           />
           <button
             type="submit"
-            className="px-4 py-2 bg-emerald-600 text-white rounded"
+            className="px-4 py-2 bg-[#21262D] hover:bg-[#30363D] text-[#E6EDF3] rounded shadow-md hover:shadow-lg transition-all duration-300 hover:ring-2 hover:ring-blue-500"
           >
             Add
           </button>
@@ -200,7 +189,7 @@ export default function AdminPage() {
 
         <Link
           href="/"
-          className="absolute bottom-6 right-6 px-6 py-3 bg-gray-800 hover:bg-gray-900 text-white rounded-full font-semibold shadow-md hover:shadow-lg transition-all duration-300"
+          className="absolute bottom-6 right-6 px-6 py-3 bg-[#21262D] hover:bg-[#30363D] text-[#E6EDF3] rounded-full font-semibold shadow-md hover:shadow-lg transition-all duration-300 hover:ring-2 hover:ring-blue-500"
         >
           Back to Home
         </Link>
