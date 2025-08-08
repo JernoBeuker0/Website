@@ -43,7 +43,7 @@ export default function Home() {
             <div className="flex flex-col justify-between h-full p-5">
               <h2 className="text-2xl font-semibold">About Me</h2>
               <p className="text-sm text-[#332F2E] mt-auto">
-                Learn about my academic background, interests, and more (section is incomplete).
+                Learn about my academic background, interests, and more (incomplete).
               </p>
             </div>
           </motion.a>
@@ -61,7 +61,7 @@ export default function Home() {
             <div className="flex flex-col justify-between h-full p-5">
               <h2 className="text-2xl font-semibold">Projects</h2>
               <p className="text-sm text-[#3A3A3A] mt-auto">
-                Explore some of my extracurricular projects (section is incomplete).
+                Explore some of my extracurricular projects (incomplete).
               </p>
             </div>
           </motion.a>
@@ -71,7 +71,7 @@ export default function Home() {
         <section>
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
             <a
-              href="mailto:jerno@example.com"
+              href="mailto:jernobeuker0@gmail.com"
               className="px-6 py-3 bg-[#F1D7CE] text-[#1A1A1A] border border-[#D4BFB8] hover:ring-2 hover:ring-blue-500 rounded-full font-semibold shadow-md hover:shadow-lg transition-all duration-300"
             >
               Contact Me
