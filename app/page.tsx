@@ -43,7 +43,7 @@ export default function Home() {
             <div className="flex flex-col justify-between h-full p-5">
               <h2 className="text-2xl font-semibold">About Me</h2>
               <p className="text-sm text-[#332F2E] mt-auto">
-                Learn about my academic background, interests, and more.
+                Learn about my academic background, interests, and more (section is incomplete).
               </p>
             </div>
           </motion.a>
@@ -61,7 +61,7 @@ export default function Home() {
             <div className="flex flex-col justify-between h-full p-5">
               <h2 className="text-2xl font-semibold">Projects</h2>
               <p className="text-sm text-[#3A3A3A] mt-auto">
-                Explore my work with React, Python, and machine learning.
+                Explore some of my extracurricular projects (section is incomplete).
               </p>
             </div>
           </motion.a>
