@@ -22,9 +22,7 @@ const timeline: TimelineItem[] = [
     title: "Returns & Repairs Specialist",
     org: "Belsimpel · Gomibo Group",
     period: "2024 — present",
-    points: [
-      "Customer-focused diagnostics and handling of device returns/repairs.",
-    ],
+    points: ["Customer-focused diagnostics and handling of device returns/repairs."],
   },
   {
     type: "work",
@@ -94,6 +92,7 @@ export default function AboutPage() {
         >
           About Me
         </motion.h1>
+
         <Image
           src="/Mee.jpeg"
           alt="Profile picture"
@@ -101,6 +100,7 @@ export default function AboutPage() {
           height={128}
           className="rounded-full object-cover w-32 h-32 shadow-md"
         />
+
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -121,36 +121,56 @@ export default function AboutPage() {
               {items.map((item, idx) => {
                 const isLeft = item.type === "work"; // work left, dev right
                 const year = parsePeriod(item.period).start;
-                const prevYear = idx > 0 ? parsePeriod(items[idx - 1].period).start : undefined;
+                const prevYear =
+                  idx > 0 ? parsePeriod(items[idx - 1].period).start : undefined;
                 const showYear = idx === 0 || year !== prevYear;
 
                 return (
-                  <li key={`${item.title}-${idx}`} className="relative md:grid md:grid-cols-9 items-center">
+                  <motion.li
+                    key={`${item.title}-${idx}`}
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.5, delay: idx * 0.08 }}
+                    className="relative md:grid md:grid-cols-9 items-center"
+                  >
                     {/* Year pill (tight above the dot) */}
                     {showYear && (
-                      <div className="absolute left-1/2 -translate-x-1/2 -top-12">
+                      <motion.div
+                        initial={{ opacity: 0, y: -6 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.4, delay: 0.05 }}
+                        className="absolute left-1/2 -translate-x-1/2 -top-12"
+                      >
                         <span className="inline-block px-3 py-1 rounded-full bg-[#0D1117] border border-[#30363D] text-sm text-[#9BA3AF]">
                           {year}
                         </span>
-                      </div>
+                      </motion.div>
                     )}
 
                     {/* Dot centered in the row */}
-                    <span className="absolute left-1/2 -translate-x-1/2 top-1/2 -mt-2 block h-4 w-4 rounded-full border-2 border-[#1A1A1A] bg-[#F1D7CE] shadow-md" />
+                    <motion.span
+                      initial={{ scale: 0, opacity: 0 }}
+                      whileInView={{ scale: 1, opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.3 }}
+                      className="absolute left-1/2 -translate-x-1/2 top-1/2 -mt-2 block h-4 w-4 rounded-full border-2 border-[#1A1A1A] bg-[#F1D7CE] shadow-md"
+                    />
 
                     {/* 9-col grid: 1-4 left, 5 line, 6-9 right */}
                     <div className="hidden md:flex md:col-start-1 md:col-end-5 justify-end pr-8">
-                      {isLeft && <TimelineCard item={item} align="left" />}
+                      {isLeft && <TimelineCard item={item} align="left" i={idx} />}
                     </div>
                     <div className="hidden md:flex md:col-start-6 md:col-end-10 justify-start pl-8">
-                      {!isLeft && <TimelineCard item={item} align="right" />}
+                      {!isLeft && <TimelineCard item={item} align="right" i={idx} />}
                     </div>
 
                     {/* Mobile */}
                     <div className="md:hidden col-span-9">
-                      <TimelineCard item={item} align="mobile" />
+                      <TimelineCard item={item} align="mobile" i={idx} />
                     </div>
-                  </li>
+                  </motion.li>
                 );
               })}
             </ul>
@@ -182,7 +202,15 @@ export default function AboutPage() {
   );
 }
 
-function TimelineCard({ item, align }: { item: TimelineItem; align: "left" | "right" | "mobile" }) {
+function TimelineCard({
+  item,
+  align,
+  i,
+}: {
+  item: TimelineItem;
+  align: "left" | "right" | "mobile";
+  i?: number;
+}) {
   const badge = item.type === "work" ? "Work" : "Development";
   const base =
     "relative rounded-2xl bg-[#161B22] border border-[#30363D] p-6 shadow-lg text-left w-full max-w-md";
@@ -190,14 +218,18 @@ function TimelineCard({ item, align }: { item: TimelineItem; align: "left" | "ri
     "hidden md:block absolute top-6 w-0 h-0 border-y-[10px] border-y-transparent";
   const arrowLeft = "-right-2 border-l-[10px] border-l-[#161B22]";
   const arrowRight = "-left-2 border-r-[10px] border-r-[#161B22]";
+
   return (
-    <div className={base}>
-      {align === "left" && (
-        <span className={`${arrowBase} ${arrowLeft}`} aria-hidden />
-      )}
-      {align === "right" && (
-        <span className={`${arrowBase} ${arrowRight}`} aria-hidden />
-      )}
+    <motion.article
+      className={base}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.4 }}
+      transition={{ duration: 0.5, delay: Math.min((i ?? 0) * 0.05, 0.3) }}
+    >
+      {align === "left" && <span className={`${arrowBase} ${arrowLeft}`} aria-hidden />}
+      {align === "right" && <span className={`${arrowBase} ${arrowRight}`} aria-hidden />}
+
       <div className="flex items-center gap-3 mb-3">
         <span
           className={`inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full border ${
@@ -210,8 +242,10 @@ function TimelineCard({ item, align }: { item: TimelineItem; align: "left" | "ri
         </span>
         <span className="text-sm text-[#9BA3AF]">{item.period}</span>
       </div>
+
       <h3 className="text-xl font-semibold">{item.title}</h3>
       <p className="text-[#C9D1D9] mb-3">{item.org}</p>
+
       {item.points && (
         <ul className="list-disc list-inside space-y-1 text-[#C9D1D9]">
           {item.points.map((p, i) => (
@@ -219,6 +253,6 @@ function TimelineCard({ item, align }: { item: TimelineItem; align: "left" | "ri
           ))}
         </ul>
       )}
-    </div>
+    </motion.article>
   );
 }
